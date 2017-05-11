@@ -1,18 +1,12 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html"> 
+      xmlns:h="http://java.sun.com/jsf/html">
 
-<h:head>
-	<title>Lista de Atletas</title>
-	<h:outputStylesheet library="css" 
-						name="bootstrap.min.css"/>
-</h:head> 
-<body> 
-
-<div class="container">
-	<h1>Lista de Atletas</h1>
+	<ui:composition template="_template.xhtml">
+		<ui:define name="conteudo">
+			<h1>Lista de Atletas</h1>
 	<h:messages styleClass="alert alert-success"/>
 	<h:dataTable value="#{listaAtletaBean.atletas}" var="a" styleClass="table">
 		<h:column>
@@ -30,26 +24,16 @@
 		<h:column>
 			<h:form>
 				<h:commandButton action="atleta" value="Editar" 
-								styleClass="btn btn-warning">
+							styleClass="btn btn-warning btn-sm"
+							style="margin-right:10px;">
 					<f:setPropertyActionListener value="#{a}"
 							 target="#{atletaBean.atleta}" />
 				</h:commandButton>
-				<h:commandButton value="Excluir" styleClass="btn btn-danger"
+				<h:commandButton value="Excluir" styleClass="btn btn-danger btn-sm"
 					action="#{listaAtletaBean.excluir(a.codigo)}" />
 			</h:form>
 		</h:column>
 	</h:dataTable>
-</div>
-
-</body> 
+		</ui:define>
+	</ui:composition>
 </html>
-
-
-
-
-
-
-
-
-
-
