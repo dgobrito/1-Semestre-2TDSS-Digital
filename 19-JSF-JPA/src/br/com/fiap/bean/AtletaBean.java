@@ -12,6 +12,7 @@ import javax.faces.validator.ValidatorException;
 import br.com.fiap.bo.AtletaBO;
 import br.com.fiap.entity.Atleta;
 import br.com.fiap.exception.DBException;
+import br.com.fiap.util.BundleUtil;
 
 @ManagedBean
 public class AtletaBean {
@@ -41,13 +42,25 @@ public class AtletaBean {
 	
 	public String cadastrar(){
 		FacesMessage msg;
+		FacesContext context = 
+				FacesContext.getCurrentInstance();
 		try {
 			if (atleta.getCodigo() == 0){
 				bo.cadastrar(atleta);
-				msg = new FacesMessage("Atleta cadastrado!");
+				String mensagem = BundleUtil
+					.getMessageResourceString(
+						context.getApplication().getMessageBundle(),
+						"msg_add_success", null, 
+						context.getViewRoot().getLocale());
+				msg = new FacesMessage(mensagem);
 			}else{
 				bo.atualizar(atleta);
-				msg = new FacesMessage("Atleta atualizado!");				
+				String mensagem = BundleUtil
+					.getMessageResourceString(
+						context.getApplication().getMessageBundle(),
+						"msg_update_success",null,
+						context.getViewRoot().getLocale());
+				msg = new FacesMessage(mensagem);				
 			}
 		} catch (DBException e) {
 			e.printStackTrace();
